@@ -56,13 +56,21 @@ float Currency::getAction()
     return (this->_action);
 }
 
-std::string Currency::getPairReadable()
+std::string Currency::getTypeReadable()
 {
     std::string name = "";
-    for (auto it = Dictionary::Pair.begin() ; it != Dictionary::Pair.end() ; it++) {
-       if (this->_type == it->second) {
-           name = it->first;
-       }
+
+    for (auto &it : Dictionary::Currency) {
+        if (this->_type == it.second) {
+            name = it.first;
+        }
+    }
+    if ("" == name) {
+        for (auto &it : Dictionary::Pair) {
+           if (this->_type == it.second) {
+               name = it.first;
+           }
+        }
     }
     return (name);
 }

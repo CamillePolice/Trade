@@ -217,9 +217,9 @@ bool MyBot::isAction()
         candle._total -= 1;
         this->_setting.setCandle(candle);
         this->_action.setOrder((size_t)std::strtol(tmp.c_str(), nullptr, 10));
-        if (this->_setting.getCandle()._total <= this->_setting.getCandle()._given) {
+        //if (this->_setting.getCandle()._total <= this->_setting.getCandle()._given) {
             this->trade();
-        }
+        //}
         return (true);
     }
     return (false);
@@ -239,54 +239,63 @@ bool MyBot::saveInput()
  * ALGORITHM SECTION
  */
 void MyBot::buy(std::list<MarketValue> marketValue) {
-    // Si candle.close > average + stardardDeviation
-    if (marketValue.back().getClose() > this->average(marketValue) + this->standardDeviation(marketValue)) {
-        // Affichage + on achète acheter
-        //this->_action.buy();
+    // strategies of purchase based on 1 superior standard deviation
+    if (marketValue.back().getClose() > this->average(marketValue)
+        + this->standardDeviation(marketValue)) {
+        this->_action.buy(this->_update.getStack(), marketValue.back());
     }
 }
 
 void MyBot::sell(std::list<MarketValue> marketValue) {
-    // Si candle.close < average - stardardDeviation
-    if (marketValue.back().getClose() < this->average(marketValue) - this->standardDeviation(marketValue)) {
-        // Affichage + on vend
-        //this->_action.sell();
+    // strategies of purchase based on 1 inferior standard deviation
+    if (marketValue.back().getClose() < this->average(marketValue)
+                                        + this->standardDeviation(marketValue)) {
+        this->_action.sell(this->_update.getStack(), marketValue.back());
     }
 }
 
-void MyBot::pass() {
-    this->_action.pass();
+void MyBot::close()
+{
+    // Sell ETH BTC TO MAKE MONEY!!!
+    for (auto &it : this->_update.getCandleList()) {
+        this->_action.sell(this->_update.getStack(), it.second.back());
+    }
+}
+
+void MyBot::printOutput()
+{
+    int counter = 0;
+    int size = (int)this->_action.getOutput().size();
+
+    for (auto &it : this->_action.getOutput()) {
+        std::cout << it;
+        if (counter < size - 1) {
+            std::cout << ";";
+        }
+        counter++;
+    }
+    std::cout << std::endl;
 }
 
 void MyBot::trade()
 {
-    // Le dernier jour on vend tout pour n'avoir que des dollars
+    // check the last day before closure
     if (1 == this->_setting.getCandle()._total) {
-        //this->_action.sell(this->_update.getStack());
-        this->_setting.setInitialStack(0);
-    }
-    // On fait l'algo sur les 3 devises sur lesquelles on doit trader
-    for (auto & it : this->_update.getCandleList()) {
-        this->sell(it.second);
-        this->buy(it.second);
-        // Si on a pas acheté ou vendu, on passe
-        if (this->_action.getOutput().empty())
-            this->pass();
-        else {
-            // Affichage pour le bot
-            int i = 0;
-            auto itOutput = this->_action.getOutput().begin();
-            for (; itOutput != this->_action.getOutput().end() ; itOutput++) {
-                if (i > (int)this->_action.getOutput().size() - 1)
-                    break;
-                std::cout << *itOutput + ";";
-            }
-            std::cout << *itOutput << std::endl;
+        this->close();
+    } else {
+        // check for good deals for each market places
+        for (auto & it : this->_update.getCandleList()) {
+            this->sell(it.second);
+            this->buy(it.second);
+        }
+        // by default pass
+        if (this->_action.getOutput().empty()) {
+            this->_action.pass();
         }
     }
+    this->printOutput();
 }
 
-// On fait la moyenne || la variance || l'écart-type sur la valeur close des candle
 double MyBot::average(std::list<MarketValue> list) {
 
     float total = 0.0;

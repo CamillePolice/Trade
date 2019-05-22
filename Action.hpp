@@ -23,9 +23,12 @@ class Action {
         std::list<std::string> getOutput();
         void addOutput(const std::string &output);
         void setOrder(const size_t &order);
-        void buy(std::list<MarketValue> currentMarket);
-        void sell(std::list<MarketValue> currentMarket);
+        void buy(std::list<Currency> stack, MarketValue currentMarket);
+        void sell(std::list<Currency> stack, MarketValue currentMarket);
         void pass();
+
+        float getBuyAmount(std::string pairType, std::list<Currency> stackList, float close);
+        float getSellAmount(std::string pairType, std::list<Currency> stackList);
     private:
         size_t _order;
         std::list<std::string> _output;

@@ -1,0 +1,6 @@
+.idea/
+CMakeLists.txt
+cmake-build-debug/
+\.vscode/ipch/a27802f710f5a9b3/
+
+\.vscode/

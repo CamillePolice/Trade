@@ -51,7 +51,7 @@ public:
     currency::Type getType();
     float getValue();
     float getAction();
-    std::string getPairReadable();
+    std::string getTypeReadable();
 
 private:
     currency::Type _type;

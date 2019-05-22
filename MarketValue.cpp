@@ -6,6 +6,7 @@
 */
 
 #include "MarketValue.hpp"
+#include "Error.hpp"
 
 /*
 ** CTOR & DTOR
@@ -58,6 +59,19 @@ void MarketValue::setVolume(const float &volume)
 currency::Type MarketValue::getPair()
 {
     return (this->_pair);
+}
+
+std::string MarketValue::getPairReadable()
+{
+    std::string pair;
+
+    for (auto &it : Dictionary::Pair) {
+        if (it.second == this->_pair) {
+            std::string pair = it.first;
+            return (pair);
+        }
+    }
+    throw Error(NONE, "impossible to find pair", INFO);
 }
 
 time_t MarketValue::getDate()

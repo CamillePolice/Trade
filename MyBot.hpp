@@ -65,7 +65,9 @@ class MyBot {
 
         void buy(std::list<MarketValue> marketValue);
         void sell(std::list<MarketValue> marketValue);
-        void pass();
+        void printOutput();
+        void close();
+
     private:
         Setting _setting;
         Update _update;

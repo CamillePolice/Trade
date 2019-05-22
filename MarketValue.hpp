@@ -26,6 +26,7 @@ class MarketValue {
         void setVolume(const float &volume);
 
         currency::Type getPair();
+        std::string getPairReadable();
         time_t getDate();
         float getLow();
         float getHigh();
