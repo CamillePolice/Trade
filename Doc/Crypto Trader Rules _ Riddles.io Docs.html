@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)https://docs.riddles.io/crypto-trader/rules -->
+<html lang="en-US" class="wf-proximanova-n7-active wf-dincondensed-n4-active wf-proximanova-n4-active wf-active"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Crypto Trader Rules | Riddles.io Docs</title>
+    <meta content="The game documentation for all programming competitions featured on Riddles.io." name="description">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="#157878" name="theme-color">
+    <link rel="shortcut icon" type="image/x-icon" href="https://docs.riddles.io/favicon.png">
+    <link href="./Crypto Trader Rules _ Riddles.io Docs_files/css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="./Crypto Trader Rules _ Riddles.io Docs_files/style.css"><style type="text/css">.tk-proxima-nova{font-family:"proxima-nova","Arial",sans-serif;}.tk-din-condensed{font-family:"din-condensed","Franklin Gothic Medium Cond","Arial",sans-serif;}</style><style type="text/css">@font-face{font-family:tk-proxima-nova-n7;src:url(https://use.typekit.net/af/925423/00000000000000003b9b038f/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3) format("woff2"),url(https://use.typekit.net/af/925423/00000000000000003b9b038f/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3) format("woff"),url(https://use.typekit.net/af/925423/00000000000000003b9b038f/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3) format("opentype");font-weight:700;font-style:normal;}@font-face{font-family:tk-proxima-nova-n4;src:url(https://use.typekit.net/af/219c30/00000000000000003b9b0389/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("woff2"),url(https://use.typekit.net/af/219c30/00000000000000003b9b0389/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("woff"),url(https://use.typekit.net/af/219c30/00000000000000003b9b0389/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("opentype");font-weight:400;font-style:normal;}@font-face{font-family:tk-din-condensed-n4;src:url(https://use.typekit.net/af/cfbead/0000000000000000000146b3/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("woff2"),url(https://use.typekit.net/af/cfbead/0000000000000000000146b3/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("woff"),url(https://use.typekit.net/af/cfbead/0000000000000000000146b3/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("opentype");font-weight:400;font-style:normal;}</style><style type="text/css">@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/925423/00000000000000003b9b038f/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3) format("woff2"),url(https://use.typekit.net/af/925423/00000000000000003b9b038f/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3) format("woff"),url(https://use.typekit.net/af/925423/00000000000000003b9b038f/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3) format("opentype");font-weight:700;font-style:normal;}@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/219c30/00000000000000003b9b0389/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("woff2"),url(https://use.typekit.net/af/219c30/00000000000000003b9b0389/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("woff"),url(https://use.typekit.net/af/219c30/00000000000000003b9b0389/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("opentype");font-weight:400;font-style:normal;}@font-face{font-family:din-condensed;src:url(https://use.typekit.net/af/cfbead/0000000000000000000146b3/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("woff2"),url(https://use.typekit.net/af/cfbead/0000000000000000000146b3/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("woff"),url(https://use.typekit.net/af/cfbead/0000000000000000000146b3/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("opentype");font-weight:400;font-style:normal;}</style>
+</head>
+<body>
+    <div class="page-wrapper page-documentation">
+        <header class="page-header">
+            <div class="page-header-content">
+                <div class="page-header-breadcrumbs">
+                    <div class="page-header-breadcrumb">
+                        <a class="page-header-home-link" href="https://riddles.io/">
+                            <img class="page-header-logo" src="./Crypto Trader Rules _ Riddles.io Docs_files/riddles-logo-header.png">
+                            <span class="logo-part-2">riddles.io</span>
+                        </a>
+                    </div>
+                    <div class="page-header-breadcrumb">
+                        <a class="page-header-home-link" href="https://docs.riddles.io/">
+                            <span class="logo-part-3">docs</span>
+                        </a>
+                    </div>
+                    
+                        <div class="page-header-breadcrumb">
+                            
+                                <a class="page-header-home-link" href="https://playground.riddles.io/competitions/crypto-trader">
+                                    <span>Crypto Trader</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="page-header-navigation">
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a class="page-header-navigation-link active" href="https://docs.riddles.io/crypto-trader/rules">
+                                Rules
+                            </a>
+                        
+                    
+                        
+                            <a class="page-header-navigation-link" href="https://docs.riddles.io/crypto-trader/api">
+                                API
+                            </a>
+                        
+                    
+                        
+                            <a class="page-header-navigation-link" href="https://docs.riddles.io/crypto-trader/examples">
+                                Examples
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                </div>
+            </div>
+        </header>
+
+        <section class="main-content">
+            <h1>Rules</h1>
+<div class="content-default">
+    <p>For this competition you will have to write a bot that trades currencies on the crypto market.
+The bot starts with $1000,- and the goal is to maximize the value of all owned currencies at the
+end of the game.</p>
+
+<h2 id="getting-started">Getting started</h2>
+
+<p>There is a training set with chart data available to create your both with. It is included in the
+Java starterbot, but you can also download it 
+<a href="https://storage.googleapis.com/riddles-code-1/cryptotrader-training-set-1.csv">here</a>. 
+This is also the chart data your bot will run against in the test
+match, that will automatically play when you upload a bot revision. The test match is for your
+own eyes only and does not count towards the score on the leaderboard. When you are happy with
+the performance of your bot, you can press ASSESS NOW on a bot revision to play a match against a 
+secret data set. The highest assessment score of all your bot revisions will automatically be
+visible on the leaderboard.</p>
+
+<h2 id="the-chart-data">The chart data</h2>
+
+<p>Currently there are 3 different currencies available.</p>
+
+<ul>
+  <li>USDT (Tether, or the crypto version of US Dollar)</li>
+  <li>BTC (Bitcoin)</li>
+  <li>ETH (Ether)</li>
+</ul>
+
+<p>Between these three currencies we have all trading pairs, which results in three available charts.</p>
+
+<ul>
+  <li>USDT_BTC</li>
+  <li>USDT_ETH</li>
+  <li>BTC_ETH</li>
+</ul>
+
+<p>Your bot will receive chart data in the form of 30-minute candles as below (CSV notation). In the
+game your bot gets all candles at a certain timestamp at the same time (see 
+<a href="https://docs.riddles.io/crypto-trader/api">API</a> and <a href="https://docs.riddles.io/crypto-trader/examples">Examples</a>).</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pair,date,high,low,open,close,volume
+USDT_ETH,1516147200,1090.1676815,1022.16791604,1023.1,1029.99999994,1389783.7868468
+</code></pre></div></div>
+<p>The first line shows the column names, the second line is an example of a candle. Below you'll 
+find the description of each column you see here.</p>
+
+<div id="figure-1" style="float:right;width:250px;">
+    <img src="./Crypto Trader Rules _ Riddles.io Docs_files/cryptotrader-rules-1.png" alt="cryptotrader-rules-1" style="margin-bottom: 12px;">
+    <h5>Figure 1: Candles and volume.</h5>
+</div>
+
+<ul>
+  <li><code class="highlighter-rouge">pair</code> The chart to which this candle belongs.</li>
+  <li><code class="highlighter-rouge">date</code> Unix timestamp, which represents a certain date and time.</li>
+  <li><code class="highlighter-rouge">high</code> The highest price traded in this candle.</li>
+  <li><code class="highlighter-rouge">low</code> The lowest price traded in this candle.</li>
+  <li><code class="highlighter-rouge">open</code> The opening price of this candle.</li>
+  <li><code class="highlighter-rouge">close</code> The closing price of this candle.</li>
+  <li><code class="highlighter-rouge">volume</code> The total volume that has been traded in this candle.</li>
+</ul>
+
+<p>In <a href="https://docs.riddles.io/crypto-trader/rules#figure-1">Figure 1</a> you can see how candles are represented in the graphs of the visualizer. When
+the closing price is higher than the opening price, the candle is green. When the closing price is
+lower than the opening price, the candle is red. In the visualizer you can additionally see the 
+graphs for the total <span style="color:green">
+value</span> and the amount (stacks) of each currency, namely <span style="color:blue">
+USDT</span>, <span style="color:orange">BTC</span>, and <span style="color:purple">ETH</span>.</p>
+
+<p>In the game the bot will receive a certain amount of candles beforehand, currently this is one
+week worth of candle data. After that, each time new candle data is given,
+the engine will ask to bot which orders it wants to place.</p>
+
+<h2 id="buying-and-selling">Buying and selling</h2>
+
+<p>When the engine asks the bot for an action, the bot can place up to one <code class="highlighter-rouge">buy</code> or <code class="highlighter-rouge">sell</code> order for
+each of the trading pairs. To do nothing at the current timestamp, the bot can also <code class="highlighter-rouge">pass</code>.</p>
+
+<p>On a buy order, the first symbol is the currency that is paid with, the second is the currency
+that is received. The amount specifies how much to buy of the second symbol. So for example
+<code class="highlighter-rouge">buy USDT_ETH 1</code> means the bot wants to buy 1 ETH. The cost would be 
+<code class="highlighter-rouge">1 * [current USDT_ETH price]</code> in USDT.</p>
+
+<p>On a sell order, the first symbol is the currency that is received, the second symbol is the
+currency that is sold. The amount specifies how much to sell of the second symbol.
+<code class="highlighter-rouge">sell USDT_ETH 1</code> means the bot wants to sell 1 ETH in this case. The bot will receive
+<code class="highlighter-rouge">1 * [current USDT_ETH price] - [fee]</code> in USDT if the order succeeds.</p>
+
+<p>Just like on a real trading platform, your bot will have to pay a transaction fee for each order
+it places. Currently the bot pays a 0.2% transaction fee, so when buying 1 ETH, the bot
+will actually receive 0,998 ETH.</p>
+
+<h3><a class="text-toggle">General rules and technicalities</a></h3>
+<div class="text-content hidden">
+<p>
+    This section contains some rules and techinalities that apply to all games and competitions
+    accross the Riddles.io platform.
+</p>
+<h3>Timebank</h3>
+<p>
+    The timebank we use is meant to allow for some additional thinking
+    time when needed. Your bot gets a maximally filled timebank when the game starts (usually
+    10 seconds). Each time an action is requested, the timebank will be increased with the amount
+    given in the time_per_move setting (usually 100 - 500ms), but the timebank can never exceed
+    its maximum. The time your bot used to respond to the request is deducted from the timebank.
+    So if your bot sometimes needs more time than the time_per_move, it can exhaust the timebank.
+</p>
+<h3>Game boards and fields</h3>
+<p>
+    In many of our competitions, the game is played on a board or a field that is represented
+    on a grid. The origin of the grid is always in the top-left corner, as is usual in computer
+    science. This means <strong>x=0, y=0</strong> is the top-left corner of the grid,
+    <strong>x=9, y=9</strong> is the bottom-right corner of a grid with height and width 10.
+</p>
+<p>
+    The string representation of the board or field always separates the cells in grid with a
+    comma and returns them per row, from top-left to bottom-right.
+</p>
+<h3>Upload and activate your bot</h3>
+<p>
+    To upload your bot, create a .zip file of the source files and upload it on the competition
+    pages. For Java specifically, make sure your file/folder structure is the same as the
+    classpaths in your code. Activate a bot revision on the overview page and it will appear on the
+    leaderboard and start to play ranked matches automatically against the other activated bots.
+</p>
+</div>
+
+<style>
+    .text-toggle {
+        cursor: pointer;
+    }
+    .text-toggle:hover {
+        text-decoration: none;
+    }
+    .text-toggle:after {
+        content: "\f078";
+        font-family: FontAwesome, sans-serif;
+        font-size: 1.1rem;
+        margin-left: 8px;
+    }
+    .text-toggle.active:after {
+        content: "\f077";
+        font-family: FontAwesome, sans-serif;
+        font-size: 1.1rem;
+        margin-left: 8px;
+    }
+  .hidden {
+    display: none;
+  }
+</style>
+
+<script>
+    var textToggle = document.querySelector(".text-toggle");
+    var textContent = document.querySelector(".text-content");
+    
+    if (textToggle && textContent) {
+        textToggle.addEventListener('click', function() {
+            if (textToggle.classList.value.indexOf("active") >= 0) {
+                textToggle.classList.remove("active");
+                textContent.classList.add("hidden");
+            } else {
+                textToggle.classList.add("active");
+                textContent.classList.remove("hidden");
+            }
+        });
+    }
+</script>
+
+
+</div>
+        </section>
+    </div>
+
+    <footer class="site-footer">
+        <div class="site-footer-content">
+            <div class="site-footer-left">
+                <span class="site-footer-copyright">© Riddles.io 2015 - 2017</span>
+                <div class="site-footer-left-links">
+                    <a href="https://riddles.io/contact">Contact us</a> <a href="https://riddles.io/faq">FAQ</a> <a href="https://riddles.io/legal/terms-of-service">Terms of service</a> <a href="https://riddles.io/legal/privacy-policy">Privacy policy</a>
+                </div>
+            </div>
+            <div class="site-footer-right">
+                <a class="link-icon" href="https://github.com/riddlesio" target="_blank"><i class="icon-github"></i></a> <a class="link-icon" href="https://www.facebook.com/riddles.io/" target="_blank"><i class="icon-facebook-sign"></i></a> <a class="link-icon" href="https://www.facebook.com/riddles.io/" target="_blank"><i class="icon-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <link href="./Crypto Trader Rules _ Riddles.io Docs_files/font-awesome.css" rel="stylesheet">
+    <script src="./Crypto Trader Rules _ Riddles.io Docs_files/stq5kcz.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+    
+
+</body></html>
