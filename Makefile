@@ -1,35 +1,25 @@
-SRC_DIR			= .
+TARGET=trade
 
-INC_DIR			= .
+CC=g++
+CFLAGS=-c -Wall -std=c++1y -O2 -static
+LDFLAGS=
 
-SRC			    = $(SRC_DIR)/Main.cpp			        \
-			      $(SRC_DIR)/MyBot.cpp			        \
-			      $(SRC_DIR)/Currency.cpp	    	    \
-			      $(SRC_DIR)/Setting.cpp	    	    \
-			      $(SRC_DIR)/Update.cpp	    		    \
-			      $(SRC_DIR)/Action.cpp	    		    \
-			      $(SRC_DIR)/Error.cpp    		    	\
-			      $(SRC_DIR)/MarketValue.cpp
-OBJ				= $(SRC:.cpp=.o)
+DEPS=$(wildcard *.hpp)
+SOURCES=$(wildcard *.cpp)
+OBJECTS=$(SOURCES:%.cpp=%.o)
 
-CXXFLAGS			= -Wall -Wextra -Werror -I$(INC_DIR)
+all: $(TARGET)
 
-DEBUG ?= 0
-ifeq ($(DEBUG), 1)
-    CFLAGS		+= -g3
-endif
+$(TARGET): $(OBJECTS)
+	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
 
-NAME			= trade
+%.o: %.cpp $(DEPS)
+	$(CC) $(CFLAGS) $< -o $@
 
-all				:	$(OBJ)
-					c++ $(OBJ) -o $(NAME) $(CXXFLAGS)
+.PHONY: clean zip
 
-clean			:
-					rm -f $(OBJ)
+zip:
+	zip $(TARGET).zip *.hpp *.cpp 
 
-fclean			: clean
-					rm -f $(NAME)
-
-re				: fclean all
-
-.PHONY			: all re clean fclean
+clean:
+	rm -rf $(OBJECTS) $(TARGET) $(TARGET).zip

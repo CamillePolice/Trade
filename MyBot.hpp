@@ -47,9 +47,9 @@ class MyBot {
         ~MyBot();
 
         void run();
-        double average(std::list<MarketValue> list);
-        double standardDeviation(std::list<MarketValue> list);
-        double variance(std::list<MarketValue> list);
+        void calculateAverage(std::list<MarketValue> list);
+        void calculateStandardDeviation(std::list<MarketValue> list);
+        void calculateVariance(std::list<MarketValue> list);
         void trade();
 
         /*
@@ -75,6 +75,7 @@ class MyBot {
         std::string _input;
         float _standardDeviation;
         float _variance;
+        float _average;
 };
 
 #endif //TRADE_2018_MYBOT_HPP

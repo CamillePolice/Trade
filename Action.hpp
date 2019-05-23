@@ -29,6 +29,7 @@ class Action {
 
         float getBuyAmount(std::string pairType, std::list<Currency> stackList, float close);
         float getSellAmount(std::string pairType, std::list<Currency> stackList);
+        void clearOutput();
     private:
         size_t _order;
         std::list<std::string> _output;

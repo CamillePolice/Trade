@@ -21,9 +21,9 @@ Update::Update()
     Currency currencyUSDT = Currency(currency::USDT);
     std::list<MarketValue> mvList = {};
 
+    this->_marketValue[currency::USDT_ETH] = mvList;
     this->_marketValue[currency::BTC_ETH] = mvList;
     this->_marketValue[currency::USDT_BTC] = mvList;
-    this->_marketValue[currency::USDT_ETH] = mvList;
     this->_stack.push_back(currencyBTC);
     this->_stack.push_back(currencyETH);
     this->_stack.push_back(currencyUSDT);
@@ -47,7 +47,7 @@ void Update::setStackByInput(std::list<std::string> &input)
     if (2 == input.size()) {
         for (auto & it : this->_stack) {
             if (Dictionary::Currency[type] == it.getType()) {
-                it.setValue((size_t)std::strtol(in->c_str(), nullptr, 10));
+                it.setValue(std::stof(*in));
                 return;
             }
         }
@@ -62,17 +62,17 @@ void Update::setNextCandleByInput(std::list<std::string> &input)
     if (7 == input.size()) {
         mv.setPair(Dictionary::Pair[*it]);
         it++;
-        mv.setDate((std::strtol(it->c_str(), nullptr, 10)));
+        mv.setDate(std::stoi(*it));
         it++;
-        mv.setHigh((std::strtol(it->c_str(), nullptr, 10)));
+        mv.setHigh(std::stof(*it));
         it++;
-        mv.setLow((std::strtol(it->c_str(), nullptr, 10)));
+        mv.setLow(std::stof(*it));
         it++;
-        mv.setOpen((std::strtol(it->c_str(), nullptr, 10)));
+        mv.setOpen(std::stof(*it));
         it++;
-        mv.setClose((std::strtol(it->c_str(), nullptr, 10)));
+        mv.setClose(std::stof(*it));
         it++;
-        mv.setVolume((std::strtol(it->c_str(), nullptr, 10)));
+        mv.setVolume(std::stof(*it));
     } else {
         throw Error(DEFAULT, "update : next candle : bad input", MAJOR);
     }
@@ -89,6 +89,19 @@ std::map<currency::Type, std::list<MarketValue>> Update::getCandleList()
     return (this->_marketValue);
 }
 
+
 /*
 ** Member fcn
 */
+void Update::affMarketValueList() {
+
+    for (auto & it : this->_marketValue) {
+        std::cout << "Currency > " << it.first << std::endl;
+        std::cout << "Value : " << std::endl;
+        for (auto &it1 : it.second) {
+            std::cout << "\tClose " << it1.getClose() << std::endl;
+            std::cout << "\tDate " << it1.getDate() << std::endl;
+            std::cout << "\tPair " << it1.getPair() << std::endl;
+        }
+    }
+}

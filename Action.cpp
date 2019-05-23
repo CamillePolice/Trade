@@ -47,20 +47,25 @@ static std::list<std::string> split(const std::string &s, char delim)
     std::string toAdd;
 
     while (getline (ss, toAdd, delim)) {
-        list.push_back (toAdd);
+        list.push_back(toAdd);
     }
     return (list);
 }
 
 float Action::getBuyAmount(std::string pairType, std::list<Currency> stackList, float close)
 {
-    std::list<std::string> pairList = split(pairType, ':');
+    std::list<std::string> pairList = split(pairType, '_');
     std::string firstSymbol = pairList.begin()->c_str();
 
     for (auto &it : stackList) {
         if (it.getTypeReadable() == firstSymbol) {
             float stack = it.getValue();
-            return (stack * close);
+            if (0 == stack) {
+                std::string msg = "empty stack to buy with " + it.getTypeReadable();
+                throw Error(NONE, msg, INFO);
+            }
+            float amount = stack / close;
+            return (amount);
         }
     }
     throw Error(NONE, "impossible to find first symbol", INFO);
@@ -71,23 +76,26 @@ void Action::buy(std::list<Currency> stack, MarketValue currentMarket) {
     try {
         std::string pairType = currentMarket.getPairReadable();
         float amount = this->getBuyAmount(pairType, stack, currentMarket.getClose());
-        if (0 < amount) {
-            std::string output = "buy " + pairType + " " + std::to_string(amount);
-            this->_output.push_back(output);
-        }
+        std::string output = "buy " + pairType + " " + std::to_string(amount);
+        this->_output.push_back(output);
     } catch (const Error &e) {
-        return;
+        std::cerr << e.getMsg() << std::endl;
     }
 }
 
 float Action::getSellAmount(std::string pairType, std::list<Currency> stackList)
 {
-    std::list<std::string> pairList = split(pairType, ':');
-    std::string firstSymbol = pairList.begin()->c_str();
-
+    std::list<std::string> pairList = split(pairType, '_');
+    auto it = pairList.end();
+    it--;
+    std::string secondSymbol = *it;
     for (auto &it : stackList) {
-        if (it.getTypeReadable() == firstSymbol) {
+        if (it.getTypeReadable() == secondSymbol) {
             float stack = it.getValue();
+            if (0 == stack) {
+                std::string msg = "empty stack to sell with " + it.getTypeReadable();
+                throw Error(NONE, msg, INFO);
+            }
             return (stack);
         }
     }
@@ -98,13 +106,16 @@ void Action::sell(std::list<Currency> stack, MarketValue currentMarket) {
     try {
         std::string pairType = currentMarket.getPairReadable();
         float amount = this->getSellAmount(pairType, stack);
-        if (0 < amount) {
-            std::string output = "sell " + pairType + " " + std::to_string(amount);
-            this->_output.push_back(output);
-        }
+        std::string output = "sell " + pairType + " " + std::to_string(amount);
+        this->_output.push_back(output);
     } catch (const Error &e) {
-        return;
+        std::cerr << e.getMsg() << std::endl;
     }
+}
+
+void Action::clearOutput()
+{
+    this->_output.clear();
 }
 
 void Action::pass() {

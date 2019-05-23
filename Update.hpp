@@ -34,6 +34,11 @@ class Update {
         std::map<currency::Type, std::list<MarketValue>> getCandleList();
         std::list<Currency> getStack();
 
+        /*
+         * DEBUG
+         */
+        void affMarketValueList();
+
     private:
         std::map <currency::Type, std::list<MarketValue>> _marketValue;
         std::list<Currency> _stack;

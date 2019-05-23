@@ -67,14 +67,14 @@ bool MyBot::isSetting()
     if (std::regex_search(this->_input, m, pattern)) {
         auto it = m.end() - 1;
         std::string tmp = *it;
-        this->_setting.setTimebank((size_t)std::strtol(tmp.c_str(), nullptr, 10));
+        this->_setting.setTimebank((size_t)std::stof(tmp));
         return (true);
     }
     pattern = (SETTING_TIMEPERMOVE_PATTERN);
     if (std::regex_search(this->_input, m, pattern)) {
         auto it = m.end() - 1;
         std::string tmp = *it;
-        this->_setting.setTimePerMove((size_t)std::strtol(tmp.c_str(), nullptr, 10));
+        this->_setting.setTimePerMove((size_t)std::stof(tmp));
         return (true);
     }
     pattern = (SETTING_PLAYERNAMES_PATTERN);
@@ -97,7 +97,7 @@ bool MyBot::isSetting()
         auto it = m.end() - 1;
         std::string tmp = *it;
         candle_t candle = this->_setting.getCandle();
-        candle._interval = ((size_t)std::strtol(tmp.c_str(), nullptr, 10));
+        candle._interval = ((size_t)std::stof(tmp));
         this->_setting.setCandle(candle);
         return (true);
     }
@@ -105,7 +105,7 @@ bool MyBot::isSetting()
     if (std::regex_search(this->_input, m, pattern)) {
         auto it = m.end() - 1;
         std::string tmp = *it;
-        candle._total = ((size_t)std::strtol(tmp.c_str(), nullptr, 10));
+        candle._total = ((size_t)std::stof(tmp));
         this->_setting.setCandle(candle);
         return (true);
     }
@@ -113,7 +113,7 @@ bool MyBot::isSetting()
     if (std::regex_search(this->_input, m, pattern)) {
         auto it = m.end() - 1;
         std::string tmp = *it;
-        candle._given = ((size_t)std::strtol(tmp.c_str(), nullptr, 10));
+        candle._given = ((size_t)std::stof(tmp));
         this->_setting.setCandle(candle);
         return (true);
     }
@@ -132,14 +132,14 @@ bool MyBot::isSetting()
     if (std::regex_search(this->_input, m, pattern)) {
         auto it = m.end() - 1;
         std::string tmp = *it;
-        this->_setting.setInitialStack(((size_t)std::strtol(tmp.c_str(), nullptr, 10)));
+        this->_setting.setInitialStack((size_t)std::stof(tmp));
         return (true);
     }
     pattern = (SETTING_FEE_TRANSACTION_PATTERN);
     if (std::regex_search(this->_input, m, pattern)) {
         auto it = m.end() - 1;
         std::string tmp = *it;
-        this->_setting.setInitialStack(((size_t)std::strtol(tmp.c_str(), nullptr, 10)));
+        this->_setting.setInitialStack((size_t)std::stof(tmp));
         return (true);
     }
     return (false);
@@ -170,7 +170,7 @@ bool MyBot::setNextCandle(std::string haystack)
     if (haystackList.empty()) {
         return (false);
     }
-    for (auto it  = haystackList.begin() ; it != haystackList.end() ; it++) {
+    for (auto it = haystackList.begin() ; it != haystackList.end() ; it++) {
         std::list<std::string> needleList = split(*it, ',');
         try {
             this->_update.setNextCandleByInput(needleList);
@@ -216,10 +216,8 @@ bool MyBot::isAction()
         candle_t candle = this->_setting.getCandle();
         candle._total -= 1;
         this->_setting.setCandle(candle);
-        this->_action.setOrder((size_t)std::strtol(tmp.c_str(), nullptr, 10));
-        //if (this->_setting.getCandle()._total <= this->_setting.getCandle()._given) {
-            this->trade();
-        //}
+        this->_action.setOrder((size_t)std::stof(tmp));
+        this->trade();
         return (true);
     }
     return (false);
@@ -240,16 +238,19 @@ bool MyBot::saveInput()
  */
 void MyBot::buy(std::list<MarketValue> marketValue) {
     // strategies of purchase based on 1 superior standard deviation
-    if (marketValue.back().getClose() > this->average(marketValue)
-        + this->standardDeviation(marketValue)) {
+    float value = this->_average + this->_standardDeviation;
+    float close = marketValue.back().getClose();
+        if (close > value) {
         this->_action.buy(this->_update.getStack(), marketValue.back());
     }
 }
 
 void MyBot::sell(std::list<MarketValue> marketValue) {
     // strategies of purchase based on 1 inferior standard deviation
-    if (marketValue.back().getClose() < this->average(marketValue)
-                                        + this->standardDeviation(marketValue)) {
+    float value = this->_average - this->_standardDeviation;
+    float close = marketValue.back().getClose();
+
+    if (close < value) {
         this->_action.sell(this->_update.getStack(), marketValue.back());
     }
 }
@@ -285,43 +286,53 @@ void MyBot::trade()
     } else {
         // check for good deals for each market places
         for (auto & it : this->_update.getCandleList()) {
+            this->calculateAverage(it.second);
+            this->calculateStandardDeviation(it.second);
             this->sell(it.second);
             this->buy(it.second);
         }
-        // by default pass
-        if (this->_action.getOutput().empty()) {
-            this->_action.pass();
-        }
     }
+    // by default pass
+    if (this->_action.getOutput().empty()) {
+        this->_action.pass();
+    }
+
     this->printOutput();
+    this->_action.clearOutput();
 }
 
-double MyBot::average(std::list<MarketValue> list) {
+void MyBot::calculateAverage(std::list<MarketValue> list) {
 
     float total = 0.0;
+    float average;
 
     for (auto & it : list) {
         total += it.getClose();
     }
-    return (total / list.size());
+    average = total / list.size();
+    this->_average = average;
 }
 
 /*
- * variance : (values sum + (currentValue²)) / total - average²
+ * Variance = moyenne (vi2) - moy2
  */
-double MyBot::variance(std::list<MarketValue> list) {
+void MyBot::calculateVariance(std::list<MarketValue> list) {
     float total = 0.0;
+    float variance;
 
     for (auto & it : list) {
         total = total + (it.getClose() * it.getClose());
     }
-    return (total / list.size() - (this->average(list) * this->average(list)));
+    variance = total / list.size() - (this->_average * this->_average);
+    this->_variance = variance;
 }
 
 /*
  * Square root of the variance
  */
-double MyBot::standardDeviation(std::list<MarketValue> list)
+void MyBot::calculateStandardDeviation(std::list<MarketValue> list)
 {
-    return sqrt(this->variance(list));
+    this->calculateVariance(list);
+    float standardDeviation = sqrt(this->_variance);
+    this->_standardDeviation = standardDeviation;
 }

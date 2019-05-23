@@ -65,14 +65,14 @@ private:
 
 namespace Dictionary {
     static std::map<std::string, currency::Type> Currency {
+            {"ETH", currency::ETH},
             {"USDT", currency::USDT},
-            {"BTC", currency::BTC},
-            {"ETH", currency::ETH}
+            {"BTC", currency::BTC}
     };
     static std::map<std::string, currency::Type> Pair {
+            {"BTC_ETH", currency::BTC_ETH},
             {"USDT_BTC", currency::USDT_BTC},
-            {"USDT_ETH", currency::USDT_ETH},
-            {"BTC_ETH", currency::BTC_ETH}
+            {"USDT_ETH", currency::USDT_ETH}
     };
 };
 
