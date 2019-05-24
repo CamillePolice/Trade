@@ -47,7 +47,8 @@ void Update::setStackByInput(std::list<std::string> &input)
     if (2 == input.size()) {
         for (auto & it : this->_stack) {
             if (Dictionary::Currency[type] == it.getType()) {
-                it.setValue(std::stof(*in));
+                float value = std::stof(*in);
+                it.setValue(value);
                 return;
             }
         }

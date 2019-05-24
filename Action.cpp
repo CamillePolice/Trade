@@ -47,7 +47,7 @@ static std::list<std::string> split(const std::string &s, char delim)
     std::string toAdd;
 
     while (getline (ss, toAdd, delim)) {
-        list.push_back(toAdd);
+        list.push_back (toAdd);
     }
     return (list);
 }
@@ -56,12 +56,20 @@ float Action::getBuyAmount(std::string pairType, std::list<Currency> stackList, 
 {
     std::list<std::string> pairList = split(pairType, '_');
     std::string firstSymbol = pairList.begin()->c_str();
-
+    auto it = pairList.end();
+    it--;
+    std::string secondSymbol = *it;
     for (auto &it : stackList) {
         if (it.getTypeReadable() == firstSymbol) {
-            float stack = it.getValue();
+            float stack = it.getValue() / 2;
+            if (it.getTypeReadable() == secondSymbol) {
+                if (it.getValue() > 0) {
+                    throw Error(NONE, "stack not empty", INFO);
+                }
+            }
             if (0 == stack) {
-                std::string msg = "empty stack to buy with " + it.getTypeReadable();
+                std::string s = std::to_string(it.getValue());
+                std::string msg = "empty stack to buy "+ secondSymbol + " with " + it.getTypeReadable() + " : " + s;
                 throw Error(NONE, msg, INFO);
             }
             float amount = stack / close;
@@ -86,6 +94,7 @@ void Action::buy(std::list<Currency> stack, MarketValue currentMarket) {
 float Action::getSellAmount(std::string pairType, std::list<Currency> stackList)
 {
     std::list<std::string> pairList = split(pairType, '_');
+    auto itt = pairList.begin();
     auto it = pairList.end();
     it--;
     std::string secondSymbol = *it;
@@ -93,7 +102,7 @@ float Action::getSellAmount(std::string pairType, std::list<Currency> stackList)
         if (it.getTypeReadable() == secondSymbol) {
             float stack = it.getValue();
             if (0 == stack) {
-                std::string msg = "empty stack to sell with " + it.getTypeReadable();
+                std::string msg = "empty stack to sell " + it.getTypeReadable() + " with " +*itt;
                 throw Error(NONE, msg, INFO);
             }
             return (stack);
