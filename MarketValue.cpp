@@ -31,27 +31,27 @@ void MarketValue::setDate(const time_t &date)
     this->_date = date;
 }
 
-void MarketValue::setLow(const float &low)
+void MarketValue::setLow(const double &low)
 {
     this->_low = low;
 }
 
-void MarketValue::setHigh(const float &high)
+void MarketValue::setHigh(const double &high)
 {
     this->_high = high;
 }
 
-void MarketValue::setOpen(const float &open)
+void MarketValue::setOpen(const double &open)
 {
     this->_open = open;
 }
 
-void MarketValue::setClose(const float &close)
+void MarketValue::setClose(const double &close)
 {
     this->_close = close;
 }
 
-void MarketValue::setVolume(const float &volume)
+void MarketValue::setVolume(const double &volume)
 {
     this->_volume = volume;
 }
@@ -79,27 +79,27 @@ time_t MarketValue::getDate()
     return (this->_date);
 }
 
-float MarketValue::getLow()
+double MarketValue::getLow()
 {
     return (this->_low);
 }
 
-float MarketValue::getHigh()
+double MarketValue::getHigh()
 {
     return (this->_high);
 }
 
-float MarketValue::getOpen()
+double MarketValue::getOpen()
 {
     return (this->_open);
 }
 
-float MarketValue::getClose()
+double MarketValue::getClose()
 {
     return (this->_close);
 }
 
-float MarketValue::getVolume()
+double MarketValue::getVolume()
 {
     return (this->_volume);
 }

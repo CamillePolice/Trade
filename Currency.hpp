@@ -41,22 +41,22 @@ public:
      */
 
     void setType(const currency::Type &type);
-    void setValue(const float &value);
-    void setAction(const float &action);
+    void setValue(const double &value);
+    void setAction(const double &action);
 
     /*
      * GETTER
      */
 
     currency::Type getType();
-    float getValue();
-    float getAction();
+    double getValue();
+    double getAction();
     std::string getTypeReadable();
 
 private:
     currency::Type _type;
-    float _value;
-    float _action;
+    double _value;
+    double _action;
 };
 
 /*
@@ -65,14 +65,14 @@ private:
 
 namespace Dictionary {
     static std::map<std::string, currency::Type> Currency {
-            {"ETH", currency::ETH},
             {"USDT", currency::USDT},
-            {"BTC", currency::BTC}
+            {"BTC", currency::BTC},
+            {"ETH", currency::ETH}
     };
     static std::map<std::string, currency::Type> Pair {
-            {"BTC_ETH", currency::BTC_ETH},
             {"USDT_BTC", currency::USDT_BTC},
-            {"USDT_ETH", currency::USDT_ETH}
+            {"USDT_ETH", currency::USDT_ETH},
+            {"BTC_ETH", currency::BTC_ETH}
     };
 };
 

@@ -31,12 +31,12 @@ void Currency::setType(const currency::Type &type)
     this->_type = type;
 }
 
-void Currency::setValue(const float &value)
+void Currency::setValue(const double &value)
 {
     this->_value = value;
 }
 
-void Currency::setAction(const float &action)
+void Currency::setAction(const double &action)
 {
     this->_action = action;
 }
@@ -46,12 +46,12 @@ currency::Type Currency::getType()
     return (this->_type);
 }
 
-float Currency::getValue()
+double Currency::getValue()
 {
     return (this->_value);
 }
 
-float Currency::getAction()
+double Currency::getAction()
 {
     return (this->_action);
 }

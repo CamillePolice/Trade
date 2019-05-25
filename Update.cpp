@@ -47,7 +47,7 @@ void Update::setStackByInput(std::list<std::string> &input)
     if (2 == input.size()) {
         for (auto & it : this->_stack) {
             if (Dictionary::Currency[type] == it.getType()) {
-                float value = std::stof(*in);
+                double value = std::stod(*in);
                 it.setValue(value);
                 return;
             }
@@ -63,17 +63,17 @@ void Update::setNextCandleByInput(std::list<std::string> &input)
     if (7 == input.size()) {
         mv.setPair(Dictionary::Pair[*it]);
         it++;
-        mv.setDate(std::stoi(*it));
+        mv.setDate(std::stod(*it));
         it++;
-        mv.setHigh(std::stof(*it));
+        mv.setHigh(std::stod(*it));
         it++;
-        mv.setLow(std::stof(*it));
+        mv.setLow(std::stod(*it));
         it++;
-        mv.setOpen(std::stof(*it));
+        mv.setOpen(std::stod(*it));
         it++;
-        mv.setClose(std::stof(*it));
+        mv.setClose(std::stod(*it));
         it++;
-        mv.setVolume(std::stof(*it));
+        mv.setVolume(std::stod(*it));
     } else {
         throw Error(DEFAULT, "update : next candle : bad input", MAJOR);
     }

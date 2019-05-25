@@ -170,7 +170,7 @@ bool MyBot::setNextCandle(std::string haystack)
     if (haystackList.empty()) {
         return (false);
     }
-    for (auto it = haystackList.begin() ; it != haystackList.end() ; it++) {
+    for (auto it  = haystackList.begin() ; it != haystackList.end() ; it++) {
         std::list<std::string> needleList = split(*it, ',');
         try {
             this->_update.setNextCandleByInput(needleList);
@@ -250,7 +250,7 @@ void MyBot::sell(std::list<MarketValue> marketValue) {
     float value = this->_average - this->_standardDeviation;
     float close = marketValue.back().getClose();
 
-    if (close < value) {
+    if (close <= value) {
         this->_action.sell(this->_update.getStack(), marketValue.back());
     }
 }
@@ -280,6 +280,9 @@ void MyBot::printOutput()
 
 void MyBot::trade()
 {
+    for (auto &it : this->_update.getStack()) {
+        std::cout << it.getTypeReadable() << " : " << it.getValue() << std::endl;
+    }
     // check the last day before closure
     if (1 == this->_setting.getCandle()._total) {
         this->close();
@@ -296,7 +299,6 @@ void MyBot::trade()
     if (this->_action.getOutput().empty()) {
         this->_action.pass();
     }
-
     this->printOutput();
     this->_action.clearOutput();
 }

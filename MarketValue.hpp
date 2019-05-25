@@ -19,29 +19,29 @@ class MarketValue {
 
         void setPair(const currency::Type &pair);
         void setDate(const time_t &date);
-        void setLow(const float &low);
-        void setHigh(const float &high);
-        void setOpen(const float &open);
-        void setClose(const float &close);
-        void setVolume(const float &volume);
+        void setLow(const double &low);
+        void setHigh(const double &high);
+        void setOpen(const double &open);
+        void setClose(const double &close);
+        void setVolume(const double &volume);
 
         currency::Type getPair();
         std::string getPairReadable();
         time_t getDate();
-        float getLow();
-        float getHigh();
-        float getOpen();
-        float getClose();
-        float getVolume();
+        double getLow();
+        double getHigh();
+        double getOpen();
+        double getClose();
+        double getVolume();
 
 private:
         currency::Type _pair;
         std::time_t _date;
-        float _low;
-        float _high;
-        float _open;
-        float _close;
-        float _volume;
+        double _low;
+        double _high;
+        double _open;
+        double _close;
+        double _volume;
     };
 
 
